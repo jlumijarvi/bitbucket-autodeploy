@@ -1,3 +1,3 @@
 # Bitbucket auto-deployment
 
-Simple auto-deployment script using bitbucket web hooks
+Simple auto-deployment for php projects with composer script using bitbucket web hooks

@@ -91,24 +91,38 @@ function main()
         "release" => $release,
     ];
 
-    $commands = [
+    $command = implode(' && ', [
         'whoami',
         "cd $appDir",
         'echo $PWD',
         'git fetch',
         "git checkout $release",
         'git status',
-        'composer install'
+        'export COMPOSER_HOME=/tmp',
+        'composer install --no-interaction --no-dev --prefer-dist 2>&1'
+    ]);
+    $result = shell_exec($command);
+
+    $output['commands'] = [
+        'command' => $command,
+        'result' => $result
     ];
 
-    $output['commands'] = [];
-
-    foreach ($commands as $command) {
-        $result = shell_exec($command);
-        $output['commands'][] = [
-            'command' => $command,
-            'result' => trim($result),
-        ];
+    // log
+    $logDir = getenv('LOG_DIR');
+    if ($logDir) {
+        if (!file_exists($logDir)) {
+            mkdir($logDir);
+        }
+        $logDir = realpath($logDir);
+        $nowUtc = gmdate('Y-m-d_His');
+        $logFile = sprintf('%s_%s.log', $nowUtc, $release);
+        // sanitize file name
+        $logFile = preg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '_', $logFile);
+        $logFile = preg_replace("([\.]{2,})", '_', $logFile);
+        $filePath = $logDir . DIRECTORY_SEPARATOR . $logFile;
+        file_put_contents($filePath, '$ ' . $command . PHP_EOL . PHP_EOL . $result);
+        $output['logFile'] = $filePath;
     }
 
     http_response_code(200);
