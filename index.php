@@ -9,7 +9,9 @@ register_shutdown_function(function () {
     $error = error_get_last();
     if (!is_null($error)) {
         http_response_code(500);
-        echo json_encode($error);
+        echo json_encode([
+            'error' => $error
+        ]);
     }
 });
 
@@ -35,11 +37,13 @@ try {
 } catch (Throwable $e) {
     http_response_code(500);
     echo json_encode([
-        'message' => $e->getMessage(),
-        'code' => $e->getCode(),
-        'file' => $e->getFile(),
-        'line' => $e->getLine(),
-        'trace' => $e->getTrace()
+        'error' => [
+            'message' => $e->getMessage(),
+            'code' => $e->getCode(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+            'trace' => $e->getTrace()
+        ]
     ]);
 }
 
