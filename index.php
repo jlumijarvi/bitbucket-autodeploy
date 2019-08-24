@@ -115,6 +115,7 @@ function main()
         'echo $PWD',
         'git fetch',
         "git checkout $release",
+        "git pull",
         'git status',
         'export COMPOSER_HOME=/tmp',
         'composer install --no-interaction --no-dev --prefer-dist 2>&1'
