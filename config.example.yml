@@ -1,0 +1,13 @@
+debug: false
+repos:
+  - name: my-app
+    token: 12345678
+    app_dir: /var/www/my-app/
+    # Example patterns
+    # eg. release/v1.0.0: /^release\/v[0-9]+\.[0-9]+\.[0-9]+$/
+    # master: /^master$/
+    branch_pattern: /^release\/v[0-9]+\.[0-9]+\.[0-9]+$/
+    log_dir: logs
+    account_id:
+      - user1-bitbucket-account-id
+      - user2-bitbucket-account-id
