@@ -99,8 +99,9 @@ function main($config)
     $output = [
         "userAgent" => $userAgent,
         "repository" => $repo,
+        "dir" => $repoConfig->app_dir,
         "release" => $release,
-        "actor" => $accountId
+        "actor" => $data->actor->nickname
     ];
 
     // TODO: move these to the config.yml
