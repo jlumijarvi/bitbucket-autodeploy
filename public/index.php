@@ -5,7 +5,7 @@
 
 define('BASE_DIR', __DIR__ . '/../');
 
-$config = file_exists(BASE_DIR . 'confiig.yml') ? json_decode(json_encode(yaml_parse_file(BASE_DIR . 'config.yml'))) : null;
+$config = file_exists(BASE_DIR . 'config.yml') ? json_decode(json_encode(yaml_parse_file(BASE_DIR . 'config.yml'))) : null;
 if (!$config) {
     send_response(501);
 }
