@@ -118,7 +118,7 @@ function main($config)
     ]);
     $result = shell_exec($command);
 
-    $output['commands'] = [
+    $output['commands'][] = [
         'command' => $command,
         'result' => $result
     ];
